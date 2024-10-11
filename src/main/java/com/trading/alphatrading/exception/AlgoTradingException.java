@@ -2,8 +2,8 @@ package com.trading.alphatrading.exception;
 
 
 import com.trading.alphatrading.api.response.ApiError;
-import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serial;
 import java.sql.Timestamp;
