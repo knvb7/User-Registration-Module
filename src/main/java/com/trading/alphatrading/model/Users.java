@@ -9,15 +9,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(schema = "user", name = "BrokerDetails")
+@Table(name = "user_table")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "user_id")
+    private Integer user_id;
 
     @Column(name = "emailId")
     private String emailId;
@@ -37,6 +37,6 @@ public class User {
     @Column(name = "active")
     private boolean active;
 
-    public User(@Email(message = "Invalid email format.") String emailId, @NotBlank(message = "Password cannot be blank.") @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters long.") String password, String phoneNumber, String lastName, @NotBlank(message = "First name cannot be blank.") String firstName, boolean b) {
+    public Users(@Email(message = "Invalid email format.") String emailId, @NotBlank(message = "Password cannot be blank.") @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters long.") String password, String phoneNumber, String lastName, @NotBlank(message = "First name cannot be blank.") String firstName, boolean b) {
     }
 }

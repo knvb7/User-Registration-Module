@@ -23,5 +23,6 @@ public class SignUpController {
     public ResponseEntity<ApiResponse<String>> signUp(@Valid @RequestBody UserSignUpPayload userSignUpPayload) throws AlgoTradingException {
         ResponseEntity<ApiResponse<String>> response = new ResponseEntity<>(HttpStatus.OK);
         userRegistrationService.registerNewUser(userSignUpPayload);
+        return null;
     }
 }

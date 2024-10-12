@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableAsync
@@ -16,7 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableJpaRepositories
 @EnableTransactionManagement
 @EnableCaching
-@EnableSwagger2
 @EnableWebSecurity
 public class AlphatradingApplication {
 

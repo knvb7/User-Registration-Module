@@ -2,7 +2,8 @@ package com.trading.alphatrading.utils.validation;
 
 
 import com.trading.alphatrading.api.request.UserSignUpPayload;
+import com.trading.alphatrading.exception.AlgoTradingException;
 
 public interface ValidationInterface {
-    void userValidation(UserSignUpPayload userSignUpPayload);
+    void userValidation(UserSignUpPayload userSignUpPayload) throws AlgoTradingException;
 }

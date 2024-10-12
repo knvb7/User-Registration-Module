@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(schema = "broker", name = "BrokerDetails")
+@Table(name = "broker_table")
 @Data
-public class BrokerDetails {
+public class Brokers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "broker_id")
+    private Integer broker_id;
 
     @Column(name = "name")
     private String name;

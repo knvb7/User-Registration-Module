@@ -24,11 +24,6 @@ public class ApiResponse<T> implements Serializable {
     private ApiError error;
     private HttpHeaders headers;
 
-    public ApiResponse() {
-        super();
-        this.headers = new HttpHeaders();
-    }
-
     @JsonIgnore
     public HttpHeaders getHeaders() {
         return headers;
