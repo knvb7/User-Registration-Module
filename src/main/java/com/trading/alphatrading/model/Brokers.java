@@ -10,7 +10,7 @@ public class Brokers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "broker_id")
-    private Integer broker_id;
+    private Integer brokerId;
 
     @Column(name = "name")
     private String name;

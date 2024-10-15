@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BrokersRepository extends JpaRepository<Brokers, Integer> {
+    void deleteByName(String brokerName);
 }

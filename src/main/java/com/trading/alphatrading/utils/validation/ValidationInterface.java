@@ -5,5 +5,7 @@ import com.trading.alphatrading.api.request.UserSignUpPayload;
 import com.trading.alphatrading.exception.AlgoTradingException;
 
 public interface ValidationInterface {
-    void userValidation(UserSignUpPayload userSignUpPayload) throws AlgoTradingException;
+    void userSignUpValidation(UserSignUpPayload userSignUpPayload) throws AlgoTradingException;
+
+    void validatePhoneNumber(String phoneNumber) throws AlgoTradingException;
 }
