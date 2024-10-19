@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Google Sign In</title>
+    <title>Login Page</title>
 </head>
 <body>
-<a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:8080/login/oauth2/code/google&response_type=code&client_id=1088144830095-0fm2bc8glhhfhep6itkr8gtrh797fs4q.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&access_type=offline">
-    Sign in with Google
-</a>
+<h1>Login Page</h1>
+<div>
+    <!-- Google Sign-In Button -->
+    <a href="/oauth2/authorization/google">
+        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"
+             alt="Sign in with Google">
+    </a>
+</div>
+<div th:if="${param.error}">
+    <p>There was an error logging in. Please try again.</p>
+</div>
 </body>
 </html>

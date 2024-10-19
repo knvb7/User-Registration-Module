@@ -1,4 +1,4 @@
-package com.trading.alphatrading.utils;
+package com.trading.alphatrading.utils.verification;
 
 import java.security.SecureRandom;
 

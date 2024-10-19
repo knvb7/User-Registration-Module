@@ -6,9 +6,12 @@ import com.trading.alphatrading.utils.validation.ValidationInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ValidationInterfaceImpl implements ValidationInterface {
     private final Logger logger = LogManager.getLogger(ValidationInterfaceImpl.class);
+
     @Override
     public void userSignUpValidation(UserSignUpPayload userSignUpPayload) throws AlgoTradingException {
         String firstName = userSignUpPayload.getFirstName();

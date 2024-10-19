@@ -65,7 +65,7 @@ public class SignUpController {
         ApiResponse<String> apiResponse = new ApiResponse<>();
         ResponseEntity<String> response;
         try {
-            response = userRegistrationService.sendOtp(ema, Constants.smsChannel);
+            response = userRegistrationService.sendOtp(emailId, Constants.smsChannel);
         } catch (AlgoTradingException e) {
             String errorMessage = "Unable to send Otp to emailId : " + emailId + " . The error is : " + e.getMessage();
             logger.error(errorMessage);

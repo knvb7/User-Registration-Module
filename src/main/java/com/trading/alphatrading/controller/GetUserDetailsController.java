@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/getUserDetails/")
 public class GetUserDetailsController {
     private final Logger logger = LogManager.getLogger(GetUserDetailsController.class);
+
     @Autowired
     private UserRegistrationService userRegistrationService;
 
