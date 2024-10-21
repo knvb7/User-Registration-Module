@@ -15,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Random;
+
 @RestController
 @RequestMapping("/api/v1/signUp/")
 public class SignUpController {
@@ -41,12 +44,12 @@ public class SignUpController {
         return ResponseHandler.generateResponse(response);
     }
 
-    @PostMapping("sendOtp/phoneNumber")
+    @GetMapping("phoneNumber/sendOtp")
     public ResponseEntity<ApiResponse> sendOtpPhoneNumber(@RequestParam String phoneNumber) {
         ApiResponse<String> apiResponse = new ApiResponse<>();
         ResponseEntity<String> response;
         try {
-            response = userRegistrationService.sendOtp(phoneNumber, Constants.smsChannel);
+            userRegistrationService.sendOtpTwilio(phoneNumber);
         } catch (AlgoTradingException e) {
             String errorMessage = "Unable to send Otp to phoneNumber : " + phoneNumber + " . The error is : " + e.getMessage();
             logger.error(errorMessage);
@@ -56,26 +59,42 @@ public class SignUpController {
         }
         apiResponse.setStatus(HttpStatus.OK);
         apiResponse.setResponseMessage("Otp sent successfully to the phoneNumber : " + phoneNumber + ".");
-        apiResponse.setPayload(response.getBody());
+//        apiResponse.setPayload(response.getBody());
+        return ResponseHandler.generateResponse(apiResponse);
+    }
+
+    @GetMapping("phoneNumber/verifyOtp")
+    public ResponseEntity<ApiResponse> verifyOtpPhoneNumber(@RequestParam String phoneNumber, @RequestParam String otpEntered) {
+        ApiResponse<String> apiResponse = new ApiResponse<>();
+        Boolean isValid = userRegistrationService.verifyOtpTwilio(phoneNumber, otpEntered);
+        if (isValid) {
+            apiResponse.setStatus(HttpStatus.OK);
+            apiResponse.setResponseMessage("PhoneNumber : " + phoneNumber + " has been verified successfully.");
+        } else {
+            apiResponse.setStatus(HttpStatus.BAD_REQUEST);
+            apiResponse.setResponseMessage("Invalid Otp entered. Please reenter the otp for the phoneNumber : " + phoneNumber);
+        }
         return ResponseHandler.generateResponse(apiResponse);
     }
 
     @PostMapping("sendOtp/email")
-    public ResponseEntity<ApiResponse> sendOtpPhoneEmail(@RequestParam String emailId) {
+    public ResponseEntity<ApiResponse> sendOtpEmail(@RequestParam List<String> toEmailIds) {
         ApiResponse<String> apiResponse = new ApiResponse<>();
         ResponseEntity<String> response;
         try {
-            response = userRegistrationService.sendOtp(emailId, Constants.smsChannel);
+            Random random = new Random();
+            String otp = String.valueOf(random.nextInt(999999));
+            String subject = "Your OTP is : " + otp;
+            userRegistrationService.sendOtpEmail("mihir.dalal.0911@gmail.com", toEmailIds, subject, subject);
         } catch (AlgoTradingException e) {
-            String errorMessage = "Unable to send Otp to emailId : " + emailId + " . The error is : " + e.getMessage();
+            String errorMessage = "Unable to send Otp to emailIds : " + toEmailIds + " . The error is : " + e.getMessage();
             logger.error(errorMessage);
             apiResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             apiResponse.setResponseMessage(errorMessage);
             return ResponseHandler.generateResponse(apiResponse);
         }
         apiResponse.setStatus(HttpStatus.OK);
-        apiResponse.setResponseMessage("Otp sent successfully to the emailId : " + emailId + ".");
-        apiResponse.setPayload(response.getBody());
+        apiResponse.setResponseMessage("Otp sent successfully to the toEmailIds : " + toEmailIds + ".");
         return ResponseHandler.generateResponse(apiResponse);
     }
 }

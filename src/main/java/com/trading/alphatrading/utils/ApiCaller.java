@@ -2,7 +2,6 @@ package com.trading.alphatrading.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.trading.alphatrading.exception.AlgoTradingException;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.*;
@@ -50,7 +49,7 @@ public class ApiCaller {
             }
         } catch (Exception e) {
             String errorMessage = "The statusCode while sending the request to the url : " + url + " is not 2xx OK or 3xx. The api call threw an exception.";
-            logger.error("The stackTrace is : {} , {}. Response for the API call is : {}", e.getStackTrace(), errorMessage, response.getBody());
+            logger.error("The stackTrace is : {} , {}. Response for the API call is : {}", e.getStackTrace(), errorMessage, response.getBody(), e);
             throw new AlgoTradingException(response.getBody(), HttpStatus.BAD_REQUEST, logger);
         }
         return response;
