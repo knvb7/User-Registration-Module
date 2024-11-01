@@ -43,4 +43,23 @@ public class UpdateUserDetailsController {
         response.setPayload(String.valueOf(user));
         return ResponseHandler.generateResponse(response);
     }
+
+    @PostMapping("updateName/")
+    public ResponseEntity<ApiResponse> updateName(@Valid @RequestBody UpdateNamePayload updateNamePayload) {
+        ApiResponse<String> response = new ApiResponse<>();
+        Users user;
+        try {
+            user = userDetailsUpdateService.updateName(updateNamePayload);
+        } catch (AlgoTradingException e){
+            String errorMessage = "Validation failed for user signUp. The error is : "+e.getMessage();
+            logger.error(errorMessage);
+            response.setStatus(HttpStatus.BAD_REQUEST);
+            response.setResponseMessage(errorMessage);
+            return ResponseHandler.generateResponse(response);
+        }
+        response.setStatus(HttpStatus.OK);
+        response.setResponseMessage("User successfully registered in the system.");
+        response.setPayload(String.valueOf(user));
+        return ResponseHandler.generateResponse(response);
+    }
 }
