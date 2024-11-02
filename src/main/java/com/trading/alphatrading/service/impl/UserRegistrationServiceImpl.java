@@ -3,6 +3,8 @@ package com.trading.alphatrading.service.impl;
 import com.trading.alphatrading.api.request.UserSignUpPayload;
 import com.trading.alphatrading.exception.AlgoTradingException;
 import com.trading.alphatrading.model.Users;
+import com.trading.alphatrading.model.UsersBrokers;
+import com.trading.alphatrading.repository.UsersBrokersRepository;
 import com.trading.alphatrading.repository.UsersRepository;
 import com.trading.alphatrading.service.UserRegistrationService;
 import com.trading.alphatrading.utils.MailSenderUtil;
@@ -32,6 +34,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
     @Autowired
     private MailSenderUtil mailSenderUtil;
+
+    @Autowired
+    private UsersBrokersRepository usersBrokersRepository;
 
     @Override
     public Users registerNewUser(UserSignUpPayload userSignUpPayload) throws AlgoTradingException {
@@ -82,5 +87,19 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
             throw new AlgoTradingException(errorMessage, HttpStatus.NOT_FOUND, logger);
         }
         return user.get();
+    }
+
+    @Override
+    public void enableDisableUser(Integer userId, Integer brokerId, Boolean enableOrDisable) throws AlgoTradingException {
+        Optional<UsersBrokers> optionalUsersBrokers = usersBrokersRepository.findByUserIdAndBrokerId(userId, brokerId);
+        if(optionalUsersBrokers.isEmpty()){
+            String errorMessage = "The user with userId : "+userId+" and brokerId : "+brokerId+ " does not exist in the database.";
+            logger.error(errorMessage);
+            throw new AlgoTradingException(errorMessage, HttpStatus.NOT_FOUND, logger);
+        }
+
+        UsersBrokers usersBrokers = optionalUsersBrokers.get();
+        usersBrokers.setActive(enableOrDisable);
+        usersBrokersRepository.save(usersBrokers);
     }
 }

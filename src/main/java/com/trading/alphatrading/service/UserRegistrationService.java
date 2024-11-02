@@ -21,4 +21,6 @@ public interface UserRegistrationService {
     Users getByPhoneNumber(String phoneNumber) throws AlgoTradingException;
 
     Users getByEmailId(String emailId) throws AlgoTradingException;
+
+    void enableDisableUser(Integer userId, Integer brokerId, Boolean enableOrDisable) throws AlgoTradingException;
 }

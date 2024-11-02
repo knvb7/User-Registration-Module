@@ -6,7 +6,6 @@ import com.trading.alphatrading.api.response.ResponseHandler;
 import com.trading.alphatrading.exception.AlgoTradingException;
 import com.trading.alphatrading.model.Users;
 import com.trading.alphatrading.service.UserRegistrationService;
-import com.trading.alphatrading.utils.Constants;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
