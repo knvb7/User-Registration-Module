@@ -1,6 +1,7 @@
 package com.trading.alphatrading.controller;
 
 import com.trading.alphatrading.api.request.UpdateNamePayload;
+import com.trading.alphatrading.api.request.UpdatePasswordPayload;
 import com.trading.alphatrading.api.response.ApiResponse;
 import com.trading.alphatrading.api.response.ResponseHandler;
 import com.trading.alphatrading.exception.AlgoTradingException;
@@ -44,12 +45,12 @@ public class UpdateUserDetailsController {
         return ResponseHandler.generateResponse(response);
     }
 
-    @PostMapping("updateName/")
-    public ResponseEntity<ApiResponse> updateName(@Valid @RequestBody UpdateNamePayload updateNamePayload) {
+    @PostMapping("updatePassword/")
+    public ResponseEntity<ApiResponse> updatePassword(@Valid @RequestBody UpdatePasswordPayload updatePasswordPayload) {
         ApiResponse<String> response = new ApiResponse<>();
         Users user;
         try {
-            user = userDetailsUpdateService.updateName(updateNamePayload);
+            user = userDetailsUpdateService.updatePassword(updatePasswordPayload);
         } catch (AlgoTradingException e){
             String errorMessage = "Validation failed for user signUp. The error is : "+e.getMessage();
             logger.error(errorMessage);

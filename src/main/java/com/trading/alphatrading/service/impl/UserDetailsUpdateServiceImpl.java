@@ -2,6 +2,7 @@ package com.trading.alphatrading.service.impl;
 
 import com.trading.alphatrading.api.request.UpdateEmailIdPayload;
 import com.trading.alphatrading.api.request.UpdateNamePayload;
+import com.trading.alphatrading.api.request.UpdatePasswordPayload;
 import com.trading.alphatrading.api.request.UpdatePhoneNumberPayload;
 import com.trading.alphatrading.exception.AlgoTradingException;
 import com.trading.alphatrading.model.Users;
@@ -61,6 +62,20 @@ public class UserDetailsUpdateServiceImpl implements UserDetailsUpdateService {
         }
         Users user = optionalUser.get();
         user.setPhoneNumber(updatePhoneNumberPayload.getNewPhoneNumber());
+        usersRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public Users updatePassword(UpdatePasswordPayload updatePasswordPayload) throws AlgoTradingException {
+        Optional<Users> optionalUser = usersRepository.findByPhoneNumber(updatePasswordPayload.getPhoneNumber());
+        if (optionalUser.isEmpty()) {
+            String errorMessage = "User with phoneNumber : " + updatePasswordPayload.getPhoneNumber() + " is not present in the system.";
+            logger.error(errorMessage);
+            throw new AlgoTradingException(errorMessage, HttpStatus.BAD_REQUEST, logger);
+        }
+        Users user = optionalUser.get();
+        user.setPassword(updatePasswordPayload.getNewPassword());
         usersRepository.save(user);
         return user;
     }
